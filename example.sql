@@ -14,7 +14,7 @@ GO
 
 SELECT *
   FROM [dbo].[collaborators]
-  where [hire_date] >= '2001-07-01';
+  where hire_date < DATEADD(DAY, -180, GETDATE())
 GO
 -- END second
 
@@ -22,11 +22,9 @@ GO
 USE [Example]
 GO
 
-SELECT [id],
-	   [fullname],
-	   [position_parent_id],
-	   [position_parent_name]
+SELECT position_parent_id, COUNT(position_parent_id)
   FROM [dbo].[collaborators]
   where [position_parent_id] in (24988, 8524)
+  GROUP BY  position_parent_id
 GO
 -- END third
